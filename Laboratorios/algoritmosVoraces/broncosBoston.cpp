@@ -35,32 +35,29 @@ using namespace std;
 
  Demostración:
 
-    rk donde r se refiere a los rivales e i a la posición del vector
-    bk donde b se refiere a los Broncos e i a la posición del vector
+    r1 <= r2 <= r3 ...| <= ri <=
+    voraz  x1 >= x2   | >= xi >=
+              ==      |   !=
+    optima y1 >= y2   |    yi      xi == yj
 
-    solución voraz = d1 + d2 + d3 + ...+ dj
-    Solución óptima = b1 - r1 + b2 - r2 ... + bk -rk
-
-    Si di = bi - ri seguimos la solucion óptima
-    Si di > bi - ri seguimos la solución voraz (este caso nunca se va a dar)
-    Si di < bi - ri seguimos la solución óptima
+    Caso xi <= ri:
+      Si se pierde en xi entonces se pierden en todos los partidos que hay a la derecha tanto en xi como en yi,
+      por esto podemos intercambiar .
     
-    Como nuestro algoritmo voraz tiene encuenta la suma de la máxima diferencia
-    entre los rivales y los Broncos siempre que sean los Broncos mayor que los rivales,
-    entonces nunca va a ocurrir que la solución óptima tenga en la posición i un número 
-    mayor que el que tiene la solución voraz en la misma posición. 
+    Caso xi > ri:
+      Si es distinto xi a yi entonces esto significa que xi > yi porque nuestra solución voraz ha ordenador de mayor a menor.
+
+      Opción yi > ri && yj > rj
+        Caso yi > rj
+          yi - ri + yi - rj (después de intercambiar) <= yj - ri + yi - rj (antes de intercambiar)
+        Caso yi <= rj
+          yi - ri + yj - rj (después de intercambiar) <= yj - ri (antes de intercambiar)
+      Opción yi > ri && yj <= rj Este caso no se puede dar porque  estamos en el caso de xi > ri y la opcion yi <= rj donde xi == yj. 
+      yi - ri (antes) <= yj - ri (después)
+      Opción yi <= ri && yj > rj
+      yj - rj (antes) <= yj -ri (después)
 
     Por lo tanto para este problema la solución voráz será la misma que la óptima.
-
-    Una solución que no sigue el algoritmo voraz va a ser mejorable. Nuestro algoritmo voraz
-    ordena los vectores por tamaño. Por tanto una solución que no siguiera el algoritmo 
-    voraz no estaría ordenando el vector:
-      Voraz: b1 - r1 > b2 - r2 > b3 - r3 ... > bk -rk
-      Otro: b1 - r1 > b2 - r2 < b3 - r3 ... > bk -rk
-
-    La diferencia de restas de la posición 2 es mayor que la de la posición 3 haciendo
-    diferente el algoritmo voraz del otro. Como queremos maximizar escogeremos la mayor
-    direfencia que en todos los casos será el del algoritmo voraz.
 
  @ </answer> */
 
